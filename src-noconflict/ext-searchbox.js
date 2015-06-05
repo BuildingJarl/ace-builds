@@ -172,16 +172,26 @@ var html = '<div class="ace_search right">\
     </div>\
 </div>'.replace(/>\s+/g, ">");
 
-var SearchBox = function(editor, range, showReplaceForm) {
+var SearchBox = function(editor, range, showReplaceForm, eventCB) {
     var div = dom.createElement("div");
     div.innerHTML = html;
     this.element = div.firstChild;
+
+
+
+    if( eventCB ) {
+        this.setEventCB( eventCB );
+    }
 
     this.$init();
     this.setEditor(editor);
 };
 
 (function() {
+    this.setEventCB = function(cb) {
+        this.__eventCB = cb;
+    }
+
     this.setEditor = function(editor) {
         editor.searchBox = this;
         editor.container.appendChild(this.element);
@@ -231,14 +241,25 @@ var SearchBox = function(editor, range, showReplaceForm) {
         });
 
         this.$onChange = lang.delayedCall(function() {
+            
+            if(this.__eventCB) {
+                this.eventCB( { type:'onChange'} );
+            }
+
             _this.find(false, false);
         });
 
         event.addListener(this.searchInput, "input", function() {
+            if(this.__eventCB) {
+                this.eventCB( { type:'input'} );
+            }
+
             _this.$onChange.schedule(20);
         });
         event.addListener(this.searchInput, "focus", function() {
-            console.log('Search box is being focused!!!!')
+            if(this.__eventCB) {
+                this.eventCB( { type:'focusSB'} );
+            }
             _this.activeInput = _this.searchInput;
             _this.searchInput.value && _this.highlight();
         });
@@ -398,8 +419,8 @@ var SearchBox = function(editor, range, showReplaceForm) {
 
 exports.SearchBox = SearchBox;
 
-exports.Search = function(editor, isReplace) {
-    var sb = editor.searchBox || new SearchBox(editor);
+exports.Search = function(editor, isReplace, cb) {
+    var sb = editor.searchBox || new SearchBox(editor, undefined, undefined, cb);
     sb.show(editor.session.getTextRange(), isReplace);
 };
 
