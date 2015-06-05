@@ -158,7 +158,7 @@ var html = '<div class="ace_search right">\
         <input class="ace_search_field" placeholder="Search for" spellcheck="false"></input>\
         <button type="button" action="findNext" class="ace_searchbtn next"></button>\
         <button type="button" action="findPrev" class="ace_searchbtn prev"></button>\
-        <button type="button" action="findAll" class="ace_searchbtn" title="Alt-Enter">All</button>\
+        <!-- <button type="button" action="findAll" class="ace_searchbtn" title="Alt-Enter">All</button> -->\
     </div>\
     <div class="ace_replace_form">\
         <input class="ace_search_field" placeholder="Replace with" spellcheck="false"></input>\
