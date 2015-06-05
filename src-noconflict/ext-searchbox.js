@@ -238,6 +238,7 @@ var SearchBox = function(editor, range, showReplaceForm) {
             _this.$onChange.schedule(20);
         });
         event.addListener(this.searchInput, "focus", function() {
+            console.log('Search box is being focused!!!!')
             _this.activeInput = _this.searchInput;
             _this.searchInput.value && _this.highlight();
         });
@@ -391,7 +392,6 @@ var SearchBox = function(editor, range, showReplaceForm) {
 
     this.isFocused = function() {
         var el = document.activeElement;
-        console.log('Search box is being focused!!!!')
         return el == this.searchInput || el == this.replaceInput;
     }
 }).call(SearchBox.prototype);
