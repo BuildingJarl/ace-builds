@@ -177,6 +177,11 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
     div.innerHTML = html;
     this.element = div.firstChild;
 
+    var input = this.element.getElementsByTagName("input")[0];
+    input.addEventListener("blur", function(event){
+        eventCB({type:'loseFocusSB'});
+    });
+
     this.$init( eventCB );
     this.setEditor(editor);
 };
