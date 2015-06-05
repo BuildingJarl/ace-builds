@@ -177,20 +177,11 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
     div.innerHTML = html;
     this.element = div.firstChild;
 
-
-
-    if( eventCB ) {
-        this.setEventCB( eventCB );
-    }
-
-    this.$init();
+    this.$init( eventCB );
     this.setEditor(editor);
 };
 
 (function() {
-    this.setEventCB = function(cb) {
-        this.__eventCB = cb;
-    }
 
     this.setEditor = function(editor) {
         editor.searchBox = this;
@@ -209,9 +200,9 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
         this.replaceInput = this.replaceBox.querySelector(".ace_search_field");
     };
     
-    this.$init = function() {
+    this.$init = function( eventCB ) {
         var sb = this.element;
-        
+        __eventCB = eventCB;
         this.$initElements(sb);
         
         var _this = this;
@@ -242,23 +233,23 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
 
         this.$onChange = lang.delayedCall(function() {
             
-            if(this.__eventCB) {
-                this.eventCB( { type:'onChange'} );
+            if(__eventCB) {
+                __eventCB( { type:'onChange'} );
             }
 
             _this.find(false, false);
         });
 
         event.addListener(this.searchInput, "input", function() {
-            if(this.__eventCB) {
-                this.eventCB( { type:'input'} );
+            if(__eventCB) {
+                __eventCB( { type:'input'} );
             }
 
             _this.$onChange.schedule(20);
         });
         event.addListener(this.searchInput, "focus", function() {
-            if(this.__eventCB) {
-                this.eventCB( { type:'focusSB'} );
+            if(__eventCB) {
+                __eventCB( { type:'focusSB'} );
             }
             _this.activeInput = _this.searchInput;
             _this.searchInput.value && _this.highlight();
