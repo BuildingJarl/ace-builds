@@ -153,7 +153,7 @@ var keyUtil = require("../lib/keys");
 dom.importCssString(searchboxCss, "ace_searchbox");
 
 var html = '<div class="ace_search right">\
-    <button type="button" action="hide" class="ace_searchbtn_close"></button>\
+    <button style="display:none;" type="button" action="hide" class="ace_searchbtn_close"></button>\
     <div class="ace_search_form">\
         <input class="ace_search_field" placeholder="Search for" spellcheck="false"></input>\
         <button type="button" action="findNext" class="ace_searchbtn next"></button>\
@@ -165,7 +165,7 @@ var html = '<div class="ace_search right">\
         <button type="button" action="replaceAndFindNext" class="ace_replacebtn">Replace</button>\
         <button type="button" action="replaceAll" class="ace_replacebtn">All</button>\
     </div>\
-    <div class="ace_search_options">\
+    <div class="ace_search_options" style="display:none;">\
         <span action="toggleRegexpMode" class="ace_button" title="RegExp Search">.*</span>\
         <span action="toggleCaseSensitive" class="ace_button" title="CaseSensitive Search">Aa</span>\
         <span action="toggleWholeWords" class="ace_button" title="Whole Word Search">\\b</span>\
@@ -267,6 +267,7 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
         }
     }]);
     this.$searchBarKb = new HashHandler();
+    /*
     this.$searchBarKb.bindKeys({
         "Ctrl-f|Command-f|Ctrl-H|Command-Option-F": function(sb) {
             var isReplace = sb.isReplace = !sb.isReplace;
@@ -300,8 +301,14 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
         "Tab": function(sb) {
             (sb.activeInput == sb.replaceInput ? sb.searchInput : sb.replaceInput).focus();
         }
+    });*/
+    this.$searchBarKb.bindKeys({
+        "esc": function(sb) {
+            setTimeout(function() { sb.hide();});
+        }
     });
-
+    
+    /*
     this.$searchBarKb.addCommands([{
         name: "toggleRegexpMode",
         bindKey: {win: "Alt-R|Alt-/", mac: "Ctrl-Alt-R|Ctrl-Alt-/"},
@@ -324,6 +331,7 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
             sb.$syncOptions();
         }
     }]);
+    */
 
     this.$syncOptions = function() {
         dom.setCssClass(this.regExpOption, "checked", this.regExpOption.checked);
