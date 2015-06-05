@@ -202,7 +202,7 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
     
     this.$init = function( eventCB ) {
         var sb = this.element;
-        __eventCB = eventCB;
+        var __eventCB = eventCB;
         this.$initElements(sb);
         
         var _this = this;
