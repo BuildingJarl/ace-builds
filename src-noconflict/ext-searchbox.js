@@ -391,6 +391,7 @@ var SearchBox = function(editor, range, showReplaceForm) {
 
     this.isFocused = function() {
         var el = document.activeElement;
+        console.log('Search box is being focused!!!!')
         return el == this.searchInput || el == this.replaceInput;
     }
 }).call(SearchBox.prototype);
