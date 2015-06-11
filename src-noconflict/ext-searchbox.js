@@ -306,13 +306,13 @@ var SearchBox = function(editor, range, showReplaceForm, eventCB) {
         "Tab": function(sb) {
             (sb.activeInput == sb.replaceInput ? sb.searchInput : sb.replaceInput).focus();
         }
-    });*/
+    });
     this.$searchBarKb.bindKeys({
         "esc": function(sb) {
             setTimeout(function() { sb.hide();});
         }
     });
-    
+    */
     /*
     this.$searchBarKb.addCommands([{
         name: "toggleRegexpMode",
