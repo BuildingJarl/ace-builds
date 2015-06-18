@@ -26,9 +26,9 @@ border-radius: 0px 0px 5px 0px;\
 left: 0;\
 }\
 .ace_search.right {\
-border-radius: 0px 0px 0px 5px;\
+border-radius: 0px 0px 5px 5px;\
 border-right: 0 none;\
-right: 20px;\
+right: 30px;\
 }\
 .ace_search_form, .ace_replace_form {\
 border-radius: 3px;\
